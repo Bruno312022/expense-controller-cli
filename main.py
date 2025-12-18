@@ -1,8 +1,3 @@
-import os
-
-def clear_screen():
-    os.system("cls" if os.name == "nt" else "clear")
-
 from expenses import (
     register_expenses,
     total_expenses,
@@ -17,66 +12,72 @@ from validations import (
     read_ask_client
 )
 
+from cli_ui import (
+    header,
+    pause,
+    show_menu
+)
+
 expenses = []
 
 while True:
-    print("\n=== EXPENSE TRACKER ===")
-    print("1 - Register expense")
-    print("2 - List expenses")
-    print("3 - Total expenses")
-    print("4 - Highest and lowest expense")
-    print("5 - Clear expenses")
-    print("0 - Exit")
+    header("EXPENSE TRACKER")
+    show_menu()
 
     option = read_option_input()
+
     if option == 1:
+        header("REGISTER EXPENSE")
         value = read_expense_input()
         register_expenses(expenses, value)
-        clear_screen()
-        print("Expense added.")
-        
+        print("\nExpense added successfully.")
+        pause()
 
     elif option == 2:
+        header("LIST EXPENSES")
         result = list_expenses(expenses)
         if result is None:
-            clear_screen()
-            print("No expenses.")
+            print("No expenses registered.")
         else:
-            clear_screen()
-            print(result)
+            for i, expense in enumerate(result, start=1):
+                print(f"{i}. ${expense:.2f}")
+        pause()
 
     elif option == 3:
+        header("TOTAL EXPENSES")
         total = total_expenses(expenses)
         if total is None:
-            clear_screen()
-            print("No expenses.")
+            print("No expenses registered.")
         else:
-            clear_screen()
-            print("Total:", total)
+            print(f"Total: ${total:.2f}")
+        pause()
 
     elif option == 4:
+        header("HIGHEST AND LOWEST")
         result = highest_and_lowest_expense(expenses)
         if result is None:
-            clear_screen()
-            print("No expenses.")
+            print("No expenses registered.")
         else:
             highest, lowest = result
-            clear_screen()
-            print("Highest:", highest)
-            print("Lowest:", lowest)
+            print(f"Highest: ${highest:.2f}")
+            print(f"Lowest : ${lowest:.2f}")
+        pause()
 
     elif option == 5:
+        header("CLEAR EXPENSES")
         ask_client = read_ask_client()
         if ask_client == "y":
             clear_expenses(expenses)
-            clear_screen()
-            print("Expenses cleared.")
+            print("All expenses cleared.")
         else:
-            clear_screen()
-            print("aborting operation")
+            print("Operation cancelled.")
+        pause()
 
     elif option == 0:
+        header("EXIT")
         print("Bye.")
         break
+
     else:
         print("Invalid option.")
+        pause()
