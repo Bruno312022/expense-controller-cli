@@ -42,4 +42,4 @@ print("expenses:", expenses)                             # Expected: [75.0]
 print("total_expenses:", total_expenses(expenses))       # Expected: 75.0
 print("highest_and_lowest:", highest_and_lowest_expense(expenses))  # Expected: (75.0, 75.0)
 
-print("\n=== ALL MANUAL TESTS FINISHED ===")
+print("\n=== ALL MANUAL TESTS FINISHED ===")0
